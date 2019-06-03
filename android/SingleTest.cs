@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Collections.ObjectModel;
 using NUnit.Framework;
@@ -9,10 +9,10 @@ using OpenQA.Selenium.Support.UI;
 
 namespace android
 {
-  [TestFixture("single","galaxy-s6")]
+  [TestFixture("single","galaxy-s9")]
   public class SingleTest : BrowserStackNUnitTest
   {
-    public SingleTest(string profile, string device) : base(profile,device){}
+    public SingleTest(string profile, string environment) : base(profile, environment) {}
 
     [Test]
     public void searchWikipedia()
