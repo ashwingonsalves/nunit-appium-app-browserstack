@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
@@ -13,20 +13,24 @@ namespace android
 	{
 		protected AndroidDriver<AndroidElement> driver;
 		protected string profile;
-		protected string device;
+        	//protected string device;
+		protected string environment;
 		private Local browserStackLocal;
 
-		public BrowserStackNUnitTest(string profile, string device)
-		{
-				this.profile = profile;
-				this.device = device;
-		}
-
+	//public BrowserStackNUnitTest(string profile, string device)
+        public BrowserStackNUnitTest(string profile, string environment)
+        {
+		this.profile = profile;
+                //this.device = device;
+                this.environment = environment;
+        }
+		
 		[SetUp]
 		public void Init()
 		{
 			NameValueCollection caps = ConfigurationManager.GetSection("capabilities/" + profile) as NameValueCollection;
-			NameValueCollection devices = ConfigurationManager.GetSection("environments/" + device) as NameValueCollection;
+            		//NameValueCollection devices = ConfigurationManager.GetSection("environments/" + device) as NameValueCollection;
+            		NameValueCollection settings = ConfigurationManager.GetSection("environments/" + environment) as NameValueCollection;
 
 			DesiredCapabilities capability = new DesiredCapabilities();
 
@@ -35,18 +39,23 @@ namespace android
 				capability.SetCapability(key, caps[key]);
 			}
 
-			foreach (string key in devices.AllKeys)
-			{
-				capability.SetCapability(key, devices[key]);
-			}
+			//foreach (string key in devices.AllKeys)
+			//{
+			//	capability.SetCapability(key, devices[key]);
+			//}
 
-			String username = Environment.GetEnvironmentVariable("BROWSERSTACK_USERNAME");
+            		foreach (string key in settings.AllKeys)
+            		{
+                		capability.SetCapability(key, settings[key]);
+            		}
+
+            		String username = Environment.GetEnvironmentVariable("BROWSERSTACK_DEMO_USER");
 			if (username == null)
 			{
 				username = ConfigurationManager.AppSettings.Get("user");
 			}
 
-			String accesskey = Environment.GetEnvironmentVariable("BROWSERSTACK_ACCESS_KEY");
+			String accesskey = Environment.GetEnvironmentVariable("BROWSERSTACK_DEMO_KEY");
 			if (accesskey == null)
 			{
 				accesskey = ConfigurationManager.AppSettings.Get("key");
@@ -65,7 +74,7 @@ namespace android
 			{
 				browserStackLocal = new Local();
 				List<KeyValuePair<string, string>> bsLocalArgs = new List<KeyValuePair<string, string>>() {
-						new KeyValuePair<string, string>("key", accesskey)
+					new KeyValuePair<string, string>("key", accesskey)
 				};
 				browserStackLocal.start(bsLocalArgs);
 			}
