@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Collections.ObjectModel;
 using NUnit.Framework;
@@ -9,13 +9,15 @@ using OpenQA.Selenium.Support.UI;
 
 namespace android
 {
-  [TestFixture("parallel", "pixel")]
-  [TestFixture("parallel", "galaxy-s6")]
-  [TestFixture("parallel", "galaxy-s7")]
+  [TestFixture("parallel", "pixel-2")]
+  [TestFixture("parallel", "pixel-3")]
+  [TestFixture("parallel", "pixel-3-xl")]
+  [TestFixture("parallel", "galaxy-s9-plus")]
+  [TestFixture("parallel", "galaxy-s8-plus")]
   [Parallelizable(ParallelScope.Fixtures)]
   public class ParallelTest : BrowserStackNUnitTest
   {
-    public ParallelTest(string profile, string device) : base(profile,device){ }
+    public ParallelTest(string profile, string environment) : base(profile, environment) { }
 
     [Test]
     public void searchWikipedia()
