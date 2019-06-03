@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Collections.ObjectModel;
 using NUnit.Framework;
@@ -8,10 +8,10 @@ using OpenQA.Selenium.Support.UI;
 
 namespace android
 {
-    [TestFixture("local", "galaxy-s7")]
+    [TestFixture("local", "galaxy-s8")]
     public class LocalTest : BrowserStackNUnitTest
     {
-        public LocalTest(string profile, string device) : base(profile,device){ }
+        public LocalTest(string profile, string environment) : base(profile, environment) { }
 
         [Test]
         public void testLocal()
